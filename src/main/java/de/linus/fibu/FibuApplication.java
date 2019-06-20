@@ -6,7 +6,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.linus.fibu.dao.Queries;
@@ -20,11 +19,7 @@ public class FibuApplication implements CommandLineRunner {
 
     @Override
     public void run(String[] args) throws Exception {
-        //TODO: JSON parsen testen
         DBConfig dbConfig = new JsonMapper().mapDBConfig("db_conf.json");
-        //ArrayList<String> testMonthList = new ArrayList<>();
-        //testMonthList.add("Gesamtes Erspartes");
-        //DBConfig dbConfig = new DBConfig("/home/linus/git/fibu_db/db/FIBU", testMonthList);
         List<String> months = dbConfig.getMonths();
         try {
             int in = Integer.parseInt(args[0]);
@@ -32,7 +27,7 @@ public class FibuApplication implements CommandLineRunner {
                 throw new RuntimeException("Input Nummer zu gross!");
             }
             String[] tableinfo = parseInput(months.get(in - 1));
-            double betrag = new Queries(dbConfig.getDbpath()).selectTable(tableinfo);
+            double betrag = new Queries(dbConfig.getDbpath(),dbConfig.getUser(), dbConfig.getPassword()).selectTable(tableinfo);
             System.out.println(months.get(in - 1) + ": " + betrag);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Input in der main args notwendig!");

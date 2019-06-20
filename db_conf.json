@@ -1,5 +1,7 @@
 {
   "dbpath": "/home/linus/git/fibu_db/db/FIBU",
+  "user": "Linus",
+  "password": "F1nanzbuchh@ltung",
   "months": [
     "Gesamtes Erspartes",
     "September 2018",

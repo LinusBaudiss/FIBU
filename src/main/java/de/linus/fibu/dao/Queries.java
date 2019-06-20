@@ -13,9 +13,9 @@ public class Queries {
 	private Connection con;
 	private static final Logger LOGGER = Logger.getLogger("Queries");
 
-	public Queries(String dbpath) {
+	public Queries(String dbpath, String user, String password) {
 		try {
-			db = new DatabaseConnection(dbpath);
+			db = new DatabaseConnection(dbpath, user, password);
 			con = db.getConnection();
 		} catch (SQLException e) {
 			LOGGER.log(Level.SEVERE, "SQL Exception im Queries Konstruktor - Fehler beim Erstellen der DB Connection!",

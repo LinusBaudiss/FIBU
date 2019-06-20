@@ -8,8 +8,8 @@ public class DatabaseConnection {
 
 	private Connection connection;
 
-	public DatabaseConnection(String dbpath) throws SQLException {
-		connection = DriverManager.getConnection("jdbc:h2:" + dbpath + ";create=true", "Linus", "F1nanzbuchh@ltung");
+	public DatabaseConnection(String dbpath, String user, String password) throws SQLException {
+		connection = DriverManager.getConnection("jdbc:h2:" + dbpath + ";create=true", user, password);
 	}
 
 	public Connection getConnection() {

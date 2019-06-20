@@ -5,7 +5,9 @@ import java.util.List;
 
 public class DBConfig {
 
+    //@JsonProperty
     private String dbpath;
+    //@JsonProperty
     private List<String> months;
 
     public DBConfig(String dbpath, ArrayList<String> months) {

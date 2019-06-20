@@ -1,8 +1,12 @@
 package de.linus.fibu;
 
+import de.linus.fibu.config.DBConfig;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.linus.fibu.dao.Queries;
 
@@ -15,24 +19,25 @@ public class FibuApplication implements CommandLineRunner {
 
     @Override
     public void run(String[] args) throws Exception {
-        String[] months = {"Gesamtes Erspartes", "September 2018", "Oktober 2018", "November 2018", "Dezember 2018",
-                "Sonderzahlungen 2018", "Januar 2019", "Februar 2019", "Maerz 2019", "April 2019", "Mai 2019",
-                "Sonderzahlungen 2019"};
-        String dbpath = System.getProperty("user.home") + "/git/fibu_db/db/FIBU";
+        //TODO: JSON parsen mit Spring ObjectMapper
+        ArrayList<String> testMonthList = new ArrayList<>();
+        testMonthList.add("Gesamtes Erspartes");
+        DBConfig dbConfig = new DBConfig("/home/linus/git/fibu_db/db/FIBU", testMonthList);
+        List<String> months = dbConfig.getMonths();
         try {
             int in = Integer.parseInt(args[0]);
-            if (in > months.length) {
+            if (in > months.size()) {
                 throw new RuntimeException("Input Nummer zu gross!");
             }
-            String[] tableinfo = parseInput(months[in - 1]);
-            double betrag = new Queries(dbpath).selectTable(tableinfo);
-            System.out.println(months[in - 1] + ": " + betrag);
+            String[] tableinfo = parseInput(months.get(in - 1));
+            double betrag = new Queries(dbConfig.getDbpath()).selectTable(tableinfo);
+            System.out.println(months.get(in - 1) + ": " + betrag);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Input in der main args notwendig!");
             System.out.println("Moegliche Inputs:");
-            for (int i = 0; i < months.length; i++) {
+            for (int i = 0; i < months.size(); i++) {
                 int num = i + 1;
-                System.out.println("[" + num + "] " + months[i]);
+                System.out.println("[" + num + "] " + months.get(i));
             }
         }
     }

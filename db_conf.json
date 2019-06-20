@@ -1,0 +1,17 @@
+{
+  "dbpath": "/home/linus/git/fibu_db/db/FIBU",
+  "months": [
+    "Gesamtes Erspartes",
+    "September 2018",
+    "Oktober 2018",
+    "November 2018",
+    "Dezember 2018",
+    "Sonderzahlungen 2018",
+    "Januar 2019",
+    "Februar 2019",
+    "Maerz 2019",
+    "April 2019",
+    "Mai 2019",
+    "Sonderzahlungen 2019"
+  ]
+}
